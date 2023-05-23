@@ -1,33 +1,3 @@
-// import { StatusBar } from "expo-status-bar";
-// import { StyleSheet } from "react-native";
-
-// import RegistrationScreen from "./Screens/RegistrationScreen";
-
-// export default function App() {
-//   return <RegistrationScreen />;
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "purple",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   borderText: {
-//     paddingTop: 50,
-//     paddingBottom: 50,
-//     paddingLeft: 100,
-//     paddingRight: 100,
-//     backgroundColor: "teal",
-//     borderColor: "#ab5fff",
-//     borderWidth: 2,
-//     borderRadius: 10,
-//   },
-// });
-
-// =================================================
-
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
@@ -53,12 +23,12 @@ const initialState = {
 
 const loadApplication = async () => {
   await Font.loadAsync({
-    "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
-    "Roboto-Medium": require("./assets/fonts/Roboto/Roboto-Medium.ttf"),
+    "Roboto-Regular": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
+    "Roboto-Medium": require("../assets/fonts/Roboto/Roboto-Medium.ttf"),
   });
 };
 
-export default App = () => {
+export default function RegistrationScreen() {
   // console.log(Platform.OS);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
@@ -102,7 +72,7 @@ export default App = () => {
       <View style={styles.container}>
         <ImageBackground
           style={styles.image}
-          // source={require("./assets/images/BG@2x.jpg")}
+          // source={require("../assets/images/BG@2x.jpg")}
           source={{ uri: "https://reactjs.org/logo-og.png" }}
           // style={{ width: 700, height: 700 }}
         >
@@ -159,7 +129,7 @@ export default App = () => {
       </View>
     </TouchableWithoutFeedback>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
