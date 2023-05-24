@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,69 +14,59 @@ import {
 } from "react-native";
 
 import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
+import * as SplashScreen from "expo-splash-screen";
 
 const initialState = {
-  name: "",
+  login: "",
   email: "",
   password: "",
 };
 
-const loadApplication = async () => {
-  await Font.loadAsync({
-    "Roboto-Regular": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
-    "Roboto-Medium": require("../assets/fonts/Roboto/Roboto-Medium.ttf"),
-  });
-};
-
-// export default function RegistrationScreen() {
-//   const [isReady, setIsReady] = useState(false);
-
-//   if (!isReady) {
-//     return (
-//       <AppLoading
-//         startAsync={loadApplication}
-//         onFinish={() => setIsReady(true)}
-//         onError={console.warn}
-//       />
-//     );
-//   }
-
-//   return (
-//     <View style={styles.container}>
-//       <ImageBackground
-//         style={styles.image}
-//         source={require("../assets/images/BG-2x.jpg")}
-//       >
-//         <View style={styles.header}>
-//           <Text style={styles.headerTitle}>Регистрация</Text>
-//         </View>
-//       </ImageBackground>
-//     </View>
-//   );
-// }
+SplashScreen.preventAutoHideAsync();
 
 export default function RegistrationScreen() {
-  // console.log(Platform.OS);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isReady, setIsReady] = useState(false);
-
-  const [dimensions, setdimensions] = useState(
-    Dimensions.get("window").width - 20 * 2
-  );
+  // const [dimensions, setdimensions] = useState(
+  //   Dimensions.get("window").width - 16 * 2
+  // );
 
   useEffect(() => {
-    const onChange = () => {
-      const width = Dimensions.get("window").width - 20 * 2;
+    async function prepare() {
+      try {
+        await Font.loadAsync({
+          "Roboto-Regular": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
+          "Roboto-Medium": require("../assets/fonts/Roboto/Roboto-Medium.ttf"),
+        });
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setIsReady(true);
+      }
+    }
+    prepare();
 
-      setdimensions(width);
-    };
-    Dimensions.addEventListener("change", onChange);
-    return () => {
-      Dimensions.removeEventListener("change", onChange);
-    };
+    // const onChange = () => {
+    //   const width = Dimensions.get("window").width - 16 * 2;
+
+    //   setdimensions(width);
+    // };
+    // Dimensions.addEventListener("change", onChange);
+    // return () => {
+    //   Dimensions.removeEventListener("change", onChange);
+    // };
   }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (isReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [isReady]);
+
+  if (!isReady) {
+    return null;
+  }
 
   const keyboardHide = () => {
     setIsShowKeyboard(false);
@@ -85,19 +75,9 @@ export default function RegistrationScreen() {
     setstate(initialState);
   };
 
-  if (!isReady) {
-    return (
-      <AppLoading
-        startAsync={loadApplication}
-        onFinish={() => setIsReady(true)}
-        onError={console.warn}
-      />
-    );
-  }
-
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
-      <View style={styles.container}>
+      <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           style={styles.image}
           source={require("../assets/images/BG-2x.jpg")}
@@ -106,10 +86,12 @@ export default function RegistrationScreen() {
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
             <View
+              // style={styles.form}
               style={{
                 ...styles.form,
-                marginBottom: isShowKeyboard ? 20 : 150,
-                width: dimensions,
+                paddingBottom: isShowKeyboard ? 194 : 78,
+                width: 350,
+                // width: dimensions,
               }}
             >
               <View style={styles.header}>
@@ -120,14 +102,14 @@ export default function RegistrationScreen() {
                   style={styles.input}
                   textAlign={"center"}
                   onFocus={() => setIsShowKeyboard(true)}
-                  value={state.name}
+                  value={state.login}
                   onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, name: value }))
+                    setstate((prevState) => ({ ...prevState, login: value }))
                   }
-                  placeholder="Никнейм"
+                  placeholder="Логин"
                 />
               </View>
-              <View style={{ marginTop: 20 }}>
+              <View style={{ marginTop: 16 }}>
                 <TextInput
                   style={styles.input}
                   textAlign={"center"}
@@ -139,7 +121,7 @@ export default function RegistrationScreen() {
                   placeholder="Адрес электронной почты"
                 />
               </View>
-              <View style={{ marginTop: 20 }}>
+              <View style={{ marginTop: 16 }}>
                 <TextInput
                   style={styles.input}
                   textAlign={"center"}
@@ -179,48 +161,57 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
+    backgroundColor: "#f6f6f6",
     borderWidth: 1,
-    borderColor: "#f0f8ff",
-    height: 40,
-    borderRadius: 6,
+    borderColor: "#e8e8e8",
+    height: 50,
+    borderRadius: 8,
 
-    color: "#f0f8ff",
+    color: "#bdbdbd",
+    fontSize: 16,
+    lineHeight: 19,
     fontFamily: "Roboto-Regular",
   },
   form: {
-    // marginHorizontal: 40,
+    paddingTop: 92,
+
+    backgroundColor: "#ffffff",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    marginHorizontal: 32,
+    alignItems: "center",
   },
   btn: {
-    borderRadius: 6,
+    borderRadius: 100,
     borderWidth: 1,
-    height: 40,
-    marginTop: 40,
+    height: 51,
+    marginTop: 43,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 20,
     ...Platform.select({
       ios: {
         backgroundColor: "transparent",
-        borderColor: "#f0f8ff",
+        borderColor: "#ff6c00",
       },
       android: {
-        backgroundColor: "#4169e1",
+        backgroundColor: "#ff6c00",
         borderColor: "transparent",
       },
     }),
   },
   btnTitle: {
-    color: Platform.OS === "ios" ? "#4169e1" : "#f0f8ff",
-    fontSize: 18,
-    fontFamily: "Roboto-Medium",
+    color: Platform.OS === "ios" ? "#ff6c00" : "#ffffff",
+    fontSize: 16,
+    lineHeight: 19,
+    fontFamily: "Roboto-Regular",
   },
   header: {
     alignItems: "center",
-    marginBottom: 120,
+    marginBottom: 32,
   },
   headerTitle: {
-    fontSize: 40,
-    color: "#f0f8ff",
+    fontSize: 30,
+    color: "#212121",
     fontFamily: "Roboto-Medium",
   },
 });
