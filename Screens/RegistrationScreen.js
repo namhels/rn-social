@@ -28,9 +28,7 @@ export default function RegistrationScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isReady, setIsReady] = useState(false);
-  // const [dimensions, setdimensions] = useState(
-  //   Dimensions.get("window").width - 16 * 2
-  // );
+  const [dimensions, setdimensions] = useState(Dimensions.get("window").width);
 
   useEffect(() => {
     async function prepare() {
@@ -47,15 +45,16 @@ export default function RegistrationScreen() {
     }
     prepare();
 
-    // const onChange = () => {
-    //   const width = Dimensions.get("window").width - 16 * 2;
+    const onChange = () => {
+      const width = Dimensions.get("window").width;
 
-    //   setdimensions(width);
-    // };
-    // Dimensions.addEventListener("change", onChange);
-    // return () => {
-    //   Dimensions.removeEventListener("change", onChange);
-    // };
+      setdimensions(width);
+    };
+    Dimensions.addEventListener("change", onChange);
+    return () => {
+      onChange.remove();
+      // Dimensions.removeEventListener("change", onChange);
+    };
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
@@ -90,8 +89,7 @@ export default function RegistrationScreen() {
               style={{
                 ...styles.form,
                 paddingBottom: isShowKeyboard ? 194 : 78,
-                width: 350,
-                // width: dimensions,
+                width: dimensions,
               }}
             >
               <View style={styles.header}>
@@ -152,7 +150,7 @@ export default function RegistrationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f0f8ff",
   },
   image: {
     flex: 1,
