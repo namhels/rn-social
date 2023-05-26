@@ -52,8 +52,8 @@ export default function RegistrationScreen() {
     };
     Dimensions.addEventListener("change", onChange);
     return () => {
-      onChange.remove();
-      // Dimensions.removeEventListener("change", onChange);
+      // Dimensions.remove();
+      Dimensions.remove("change", onChange);
     };
   }, []);
 
@@ -89,6 +89,7 @@ export default function RegistrationScreen() {
               style={{
                 ...styles.form,
                 paddingBottom: isShowKeyboard ? 194 : 78,
+                // marginBottom: isShowKeyboard ? 20 : 150,
                 width: dimensions,
               }}
             >
@@ -97,7 +98,10 @@ export default function RegistrationScreen() {
               </View>
               <View>
                 <TextInput
-                  style={styles.input}
+                  style={{
+                    ...styles.input,
+                    width: dimensions,
+                  }}
                   textAlign={"center"}
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.login}
