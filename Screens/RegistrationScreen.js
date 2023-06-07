@@ -26,7 +26,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RegistrationScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [state, setstate] = useState(initialState);
+  const [state, setState] = useState(initialState);
   const [isReady, setIsReady] = useState(false);
   const [dimensions, setdimensions] = useState(Dimensions.get("window").width);
 
@@ -50,10 +50,11 @@ export default function RegistrationScreen() {
 
       setdimensions(width);
     };
-    Dimensions.addEventListener("change", onChange);
+    const subscription = Dimensions.addEventListener("change", onChange);
     return () => {
+      subscription?.remove();
       // Dimensions.remove();
-      Dimensions.remove("change", onChange);
+      // Dimensions.remove("change", onChange);
     };
   }, []);
 
@@ -71,12 +72,20 @@ export default function RegistrationScreen() {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
     console.log(state);
-    setstate(initialState);
+    setState(initialState);
   };
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
-      <View style={styles.container} onLayout={onLayoutRootView}>
+      <View
+        // style={styles.container}
+        style={{
+          ...styles.container,
+          // paddingBottom: isShowKeyboard ? 194 : 78,
+          paddingBottom: isShowKeyboard ? 20 : 150,
+        }}
+        onLayout={onLayoutRootView}
+      >
         <ImageBackground
           style={styles.image}
           source={require("../assets/images/BG-2x.jpg")}
@@ -88,8 +97,8 @@ export default function RegistrationScreen() {
               // style={styles.form}
               style={{
                 ...styles.form,
-                paddingBottom: isShowKeyboard ? 194 : 78,
-                // marginBottom: isShowKeyboard ? 20 : 150,
+                // paddingBottom: isShowKeyboard ? 194 : 78,
+                // paddingBottom: isShowKeyboard ? 20 : 150,
                 width: dimensions,
               }}
             >
@@ -100,45 +109,54 @@ export default function RegistrationScreen() {
                 <TextInput
                   style={{
                     ...styles.input,
-                    width: dimensions,
+                    width: dimensions - 32,
                   }}
                   textAlign={"center"}
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.login}
                   onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, login: value }))
+                    setState((prevState) => ({ ...prevState, login: value }))
                   }
                   placeholder="Логин"
                 />
               </View>
               <View style={{ marginTop: 16 }}>
                 <TextInput
-                  style={styles.input}
+                  style={{
+                    ...styles.input,
+                    width: dimensions - 32,
+                  }}
                   textAlign={"center"}
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.email}
                   onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, email: value }))
+                    setState((prevState) => ({ ...prevState, email: value }))
                   }
                   placeholder="Адрес электронной почты"
                 />
               </View>
               <View style={{ marginTop: 16 }}>
                 <TextInput
-                  style={styles.input}
+                  style={{
+                    ...styles.input,
+                    width: dimensions - 32,
+                  }}
                   textAlign={"center"}
                   secureTextEntry={true}
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.password}
                   onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, password: value }))
+                    setState((prevState) => ({ ...prevState, password: value }))
                   }
                   placeholder="Пароль"
                 />
               </View>
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={styles.btn}
+                style={{
+                  ...styles.btn,
+                  width: dimensions - 32,
+                }}
                 onPress={keyboardHide}
               >
                 <Text style={styles.btnTitle}>Зарегистрироваться</Text>
@@ -155,6 +173,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f0f8ff",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    // paddingBottom: 30,
   },
   image: {
     flex: 1,
