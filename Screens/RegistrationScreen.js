@@ -80,74 +80,82 @@ export default function RegistrationScreen() {
           style={styles.image}
           source={require("../assets/images/BG-2x.jpg")}
         >
-          <KeyboardAvoidingView behavior={Platform.OS === "ios" && "padding"}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" && "padding"}
+            // behavior={Platform.OS == "ios" ? "padding" : "height"}
+          >
             <View
               style={{
                 ...styles.form,
-                paddingBottom: isShowKeyboard ? 20 : 150,
-                // paddingBottom: isShowKeyboard ? 194 : 78,
+                paddingBottom: isShowKeyboard ? 32 : 78,
                 width: dimensions,
               }}
             >
               <View style={styles.header}>
                 <Text style={styles.headerTitle}>Регистрация</Text>
               </View>
-              <View>
-                <TextInput
+              <View style={{ width: dimensions - 32 }}>
+                <View>
+                  <TextInput
+                    style={styles.input}
+                    textAlign={"center"}
+                    onFocus={() => setIsShowKeyboard(true)}
+                    value={state.login}
+                    onChangeText={(value) =>
+                      setState((prevState) => ({ ...prevState, login: value }))
+                    }
+                    placeholder="Логин"
+                  />
+                </View>
+                <View style={{ marginTop: 16 }}>
+                  <TextInput
+                    style={styles.input}
+                    textAlign={"center"}
+                    onFocus={() => setIsShowKeyboard(true)}
+                    value={state.email}
+                    onChangeText={(value) =>
+                      setState((prevState) => ({ ...prevState, email: value }))
+                    }
+                    placeholder="Адрес электронной почты"
+                  />
+                </View>
+                <View style={{ marginTop: 16 }}>
+                  <TextInput
+                    style={styles.input}
+                    textAlign={"center"}
+                    secureTextEntry={true}
+                    onFocus={() => setIsShowKeyboard(true)}
+                    value={state.password}
+                    onChangeText={(value) =>
+                      setState((prevState) => ({
+                        ...prevState,
+                        password: value,
+                      }))
+                    }
+                    placeholder="Пароль"
+                  />
+                </View>
+                <TouchableOpacity
+                  activeOpacity={0.8}
                   style={{
-                    ...styles.input,
-                    width: dimensions - 32,
+                    ...styles.btn,
+                    display: isShowKeyboard ? "none" : "flex",
                   }}
-                  textAlign={"center"}
-                  onFocus={() => setIsShowKeyboard(true)}
-                  value={state.login}
-                  onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, login: value }))
-                  }
-                  placeholder="Логин"
-                />
-              </View>
-              <View style={{ marginTop: 16 }}>
-                <TextInput
+                  onPress={keyboardHide}
+                >
+                  <Text style={styles.btnTitle}>Зарегистрироваться</Text>
+                </TouchableOpacity>
+                <View
                   style={{
-                    ...styles.input,
-                    width: dimensions - 32,
+                    ...styles.linkIsHaveAccount,
+                    display: isShowKeyboard ? "none" : "flex",
                   }}
-                  textAlign={"center"}
-                  onFocus={() => setIsShowKeyboard(true)}
-                  value={state.email}
-                  onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, email: value }))
-                  }
-                  placeholder="Адрес электронной почты"
-                />
+                >
+                  <Text style={styles.linkIsHaveAccountText}>
+                    Уже есть аккаунт? Войти
+                  </Text>
+                </View>
               </View>
-              <View style={{ marginTop: 16 }}>
-                <TextInput
-                  style={{
-                    ...styles.input,
-                    width: dimensions - 32,
-                  }}
-                  textAlign={"center"}
-                  secureTextEntry={true}
-                  onFocus={() => setIsShowKeyboard(true)}
-                  value={state.password}
-                  onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, password: value }))
-                  }
-                  placeholder="Пароль"
-                />
-              </View>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={{
-                  ...styles.btn,
-                  width: dimensions - 32,
-                }}
-                onPress={keyboardHide}
-              >
-                <Text style={styles.btnTitle}>Зарегистрироваться</Text>
-              </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
@@ -169,12 +177,19 @@ const styles = StyleSheet.create({
   },
   form: {
     paddingTop: 92,
-
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    marginHorizontal: 32,
     alignItems: "center",
+  },
+  header: {
+    alignItems: "center",
+    marginBottom: 32,
+  },
+  headerTitle: {
+    fontSize: 30,
+    color: "#212121",
+    fontFamily: "Roboto-Medium",
   },
   input: {
     backgroundColor: "#f6f6f6",
@@ -212,13 +227,14 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     fontFamily: "Roboto-Regular",
   },
-  header: {
+  linkIsHaveAccount: {
+    marginTop: 16,
     alignItems: "center",
-    marginBottom: 32,
   },
-  headerTitle: {
-    fontSize: 30,
-    color: "#212121",
-    fontFamily: "Roboto-Medium",
+  linkIsHaveAccountText: {
+    color: "#1B4371",
+    fontSize: 16,
+    lineHeight: 19,
+    fontFamily: "Roboto-Regular",
   },
 });
