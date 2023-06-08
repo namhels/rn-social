@@ -53,8 +53,6 @@ export default function RegistrationScreen() {
     const subscription = Dimensions.addEventListener("change", onChange);
     return () => {
       subscription?.remove();
-      // Dimensions.remove();
-      // Dimensions.remove("change", onChange);
     };
   }, []);
 
@@ -77,28 +75,17 @@ export default function RegistrationScreen() {
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
-      <View
-        // style={styles.container}
-        style={{
-          ...styles.container,
-          // paddingBottom: isShowKeyboard ? 194 : 78,
-          paddingBottom: isShowKeyboard ? 20 : 150,
-        }}
-        onLayout={onLayoutRootView}
-      >
+      <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           style={styles.image}
           source={require("../assets/images/BG-2x.jpg")}
         >
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-          >
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" && "padding"}>
             <View
-              // style={styles.form}
               style={{
                 ...styles.form,
+                paddingBottom: isShowKeyboard ? 20 : 150,
                 // paddingBottom: isShowKeyboard ? 194 : 78,
-                // paddingBottom: isShowKeyboard ? 20 : 150,
                 width: dimensions,
               }}
             >
@@ -173,14 +160,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f0f8ff",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    // paddingBottom: 30,
   },
   image: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  form: {
+    paddingTop: 92,
+
+    backgroundColor: "#ffffff",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    marginHorizontal: 32,
     alignItems: "center",
   },
   input: {
@@ -194,15 +187,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     fontFamily: "Roboto-Regular",
-  },
-  form: {
-    paddingTop: 92,
-
-    backgroundColor: "#ffffff",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    marginHorizontal: 32,
-    alignItems: "center",
   },
   btn: {
     borderRadius: 100,
