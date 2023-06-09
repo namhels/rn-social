@@ -29,6 +29,7 @@ export default function RegistrationScreen() {
   const [state, setState] = useState(initialState);
   const [isReady, setIsReady] = useState(false);
   const [dimensions, setdimensions] = useState(Dimensions.get("window").width);
+  const [isOnFocus, setIsOnFocus] = useState(styles.input);
 
   useEffect(() => {
     async function prepare() {
@@ -47,12 +48,11 @@ export default function RegistrationScreen() {
 
     const onChange = () => {
       const width = Dimensions.get("window").width;
-
       setdimensions(width);
     };
-    const subscription = Dimensions.addEventListener("change", onChange);
+    const listener = Dimensions.addEventListener("change", onChange);
     return () => {
-      subscription?.remove();
+      listener?.remove();
     };
   }, []);
 
@@ -71,6 +71,15 @@ export default function RegistrationScreen() {
     Keyboard.dismiss();
     console.log(state);
     setState(initialState);
+  };
+
+  const onFocusHandler = () => {
+    setIsOnFocus(styles.inputOnFocus);
+    setIsShowKeyboard(true);
+  };
+
+  const onBlurHandler = () => {
+    setIsOnFocus(styles.input);
   };
 
   return (
@@ -97,9 +106,10 @@ export default function RegistrationScreen() {
               <View style={{ width: dimensions - 32 }}>
                 <View>
                   <TextInput
-                    style={styles.input}
+                    style={isOnFocus}
+                    onFocus={onFocusHandler}
+                    onBlur={onBlurHandler}
                     textAlign={"center"}
-                    onFocus={() => setIsShowKeyboard(true)}
                     value={state.login}
                     onChangeText={(value) =>
                       setState((prevState) => ({ ...prevState, login: value }))
@@ -109,9 +119,10 @@ export default function RegistrationScreen() {
                 </View>
                 <View style={{ marginTop: 16 }}>
                   <TextInput
-                    style={styles.input}
+                    style={isOnFocus}
+                    onFocus={onFocusHandler}
+                    onBlur={onBlurHandler}
                     textAlign={"center"}
-                    onFocus={() => setIsShowKeyboard(true)}
                     value={state.email}
                     onChangeText={(value) =>
                       setState((prevState) => ({ ...prevState, email: value }))
@@ -121,10 +132,11 @@ export default function RegistrationScreen() {
                 </View>
                 <View style={{ marginTop: 16 }}>
                   <TextInput
-                    style={styles.input}
+                    style={isOnFocus}
+                    onFocus={onFocusHandler}
+                    onBlur={onBlurHandler}
                     textAlign={"center"}
                     secureTextEntry={true}
-                    onFocus={() => setIsShowKeyboard(true)}
                     value={state.password}
                     onChangeText={(value) =>
                       setState((prevState) => ({
@@ -147,11 +159,11 @@ export default function RegistrationScreen() {
                 </TouchableOpacity>
                 <View
                   style={{
-                    ...styles.linkIsHaveAccount,
+                    ...styles.linkToLogin,
                     display: isShowKeyboard ? "none" : "flex",
                   }}
                 >
-                  <Text style={styles.linkIsHaveAccountText}>
+                  <Text style={styles.linkToLoginText}>
                     Уже есть аккаунт? Войти
                   </Text>
                 </View>
@@ -203,6 +215,18 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     fontFamily: "Roboto-Regular",
   },
+  inputOnFocus: {
+    backgroundColor: "#ffffff",
+    borderWidth: 1,
+    borderColor: "#ff6c00",
+    height: 50,
+    borderRadius: 8,
+
+    color: "#212121",
+    fontSize: 16,
+    lineHeight: 19,
+    fontFamily: "Roboto-Regular",
+  },
   btn: {
     borderRadius: 100,
     borderWidth: 1,
@@ -227,11 +251,11 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     fontFamily: "Roboto-Regular",
   },
-  linkIsHaveAccount: {
+  linkToLogin: {
     marginTop: 16,
     alignItems: "center",
   },
-  linkIsHaveAccountText: {
+  linkToLoginText: {
     color: "#1B4371",
     fontSize: 16,
     lineHeight: 19,
