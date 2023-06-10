@@ -107,21 +107,21 @@ export default function RegistrationScreen() {
                 <View>
                   <TextInput
                     style={isOnFocus}
-                    onFocus={onFocusHandler}
-                    onBlur={onBlurHandler}
+                    onFocus={() => onFocusHandler()}
+                    onBlur={() => onBlurHandler()}
                     textAlign={"center"}
                     value={state.login}
                     onChangeText={(value) =>
                       setState((prevState) => ({ ...prevState, login: value }))
                     }
-                    placeholder="Логин"
+                    placeholder="Логин888"
                   />
                 </View>
                 <View style={{ marginTop: 16 }}>
                   <TextInput
                     style={isOnFocus}
-                    onFocus={onFocusHandler}
-                    onBlur={onBlurHandler}
+                    onFocus={() => onFocusHandler()}
+                    onBlur={() => onBlurHandler()}
                     textAlign={"center"}
                     value={state.email}
                     onChangeText={(value) =>
@@ -133,8 +133,8 @@ export default function RegistrationScreen() {
                 <View style={{ marginTop: 16 }}>
                   <TextInput
                     style={isOnFocus}
-                    onFocus={onFocusHandler}
-                    onBlur={onBlurHandler}
+                    onFocus={() => onFocusHandler()}
+                    onBlur={() => onBlurHandler()}
                     textAlign={"center"}
                     secureTextEntry={true}
                     value={state.password}
@@ -216,16 +216,10 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
   },
   inputOnFocus: {
+    ...input,
     backgroundColor: "#ffffff",
-    borderWidth: 1,
     borderColor: "#ff6c00",
-    height: 50,
-    borderRadius: 8,
-
     color: "#212121",
-    fontSize: 16,
-    lineHeight: 19,
-    fontFamily: "Roboto-Regular",
   },
   btn: {
     borderRadius: 100,
