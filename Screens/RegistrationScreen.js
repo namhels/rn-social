@@ -114,7 +114,7 @@ export default function RegistrationScreen() {
                     onChangeText={(value) =>
                       setState((prevState) => ({ ...prevState, login: value }))
                     }
-                    placeholder="Логин888"
+                    placeholder="Логін"
                   />
                 </View>
                 <View style={{ marginTop: 16 }}>
@@ -127,7 +127,7 @@ export default function RegistrationScreen() {
                     onChangeText={(value) =>
                       setState((prevState) => ({ ...prevState, email: value }))
                     }
-                    placeholder="Адрес электронной почты"
+                    placeholder="Адреса електронної пошти"
                   />
                 </View>
                 <View style={{ marginTop: 16 }}>
@@ -216,10 +216,16 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
   },
   inputOnFocus: {
-    ...input,
+    // ...input,
     backgroundColor: "#ffffff",
+    borderWidth: 1,
+    height: 50,
+    borderRadius: 8,
     borderColor: "#ff6c00",
     color: "#212121",
+    fontSize: 16,
+    lineHeight: 19,
+    fontFamily: "Roboto-Regular",
   },
   btn: {
     borderRadius: 100,
