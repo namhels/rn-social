@@ -69,6 +69,10 @@ export default function RegistrationScreen() {
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+  };
+
+  const sign = () => {
+    keyboardHide();
     console.log(state);
     setState(initialState);
   };
@@ -87,7 +91,7 @@ export default function RegistrationScreen() {
       <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           style={styles.image}
-          source={require("../assets/images/BG-2x.jpg")}
+          source={require("../../assets/images/BG-2x.jpg")}
         >
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" && "padding"}
@@ -101,7 +105,7 @@ export default function RegistrationScreen() {
               }}
             >
               <View style={styles.header}>
-                <Text style={styles.headerTitle}>Регистрация</Text>
+                <Text style={styles.headerTitle}>Реєстрація</Text>
               </View>
               <View style={{ width: dimensions - 32 }}>
                 <View>
@@ -153,20 +157,20 @@ export default function RegistrationScreen() {
                     ...styles.btn,
                     display: isShowKeyboard ? "none" : "flex",
                   }}
-                  onPress={keyboardHide}
+                  onPress={sign}
                 >
-                  <Text style={styles.btnTitle}>Зарегистрироваться</Text>
+                  <Text style={styles.btnTitle}>Зареєстуватися</Text>
                 </TouchableOpacity>
-                <View
+                <TouchableOpacity
                   style={{
                     ...styles.linkToLogin,
                     display: isShowKeyboard ? "none" : "flex",
                   }}
                 >
                   <Text style={styles.linkToLoginText}>
-                    Уже есть аккаунт? Войти
+                    Вже є акаунт? Увійти
                   </Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </KeyboardAvoidingView>
