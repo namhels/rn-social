@@ -4,8 +4,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { useRoute } from "./router";
 
-// import RegistrationScreen from "./Screens/auth/RegistrationScreen";
-
 export default function App() {
   const routing = useRoute(true);
 

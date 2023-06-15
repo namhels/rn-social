@@ -6,15 +6,17 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
-// import LoginScreen from "./screens/auth/LoginScreen";
-import RegisterScreen from "./screens/auth/RegisterScreen";
-import PostsScreen from "./screens/mainScreen/PostsScreen";
-import CreateScreen from "./screens/mainScreen/CreateScreen";
-import ProfileScreen from "./screens/mainScreen/ProfileScreen";
+import LoginScreen from "./Screens/auth/LoginScreen";
+import RegistrationScreen from "./Screens/auth/RegistrationScreen";
+import PostsScreen from "./Screens/mainScreen/PostsScreen";
+import CreatePostsScreen from "./Screens/mainScreen/CreatePostsScreen";
+import ProfileScreen from "./Screens/mainScreen/ProfileScreen";
 
-// icons import
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
+import {
+  AiOutlineAppstore,
+  AiOutlinePlus,
+  AiOutlineUser,
+} from "react-icons/ai";
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
@@ -32,7 +34,7 @@ export const useRoute = (isAuth) => {
             headerShown: false,
           }}
           name="Register"
-          component={RegisterScreen}
+          component={RegistrationScreen}
         />
       </AuthStack.Navigator>
     );
@@ -42,11 +44,7 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <MaterialCommunityIcons
-              name="postage-stamp"
-              size={size}
-              color={color}
-            />
+            <AiOutlineAppstore name="postage-stamp" size={size} color={color} />
           ),
         }}
         name="Posts"
@@ -55,20 +53,16 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <AntDesign name="pluscircleo" size={35} color={color} />
+            <AiOutlinePlus name="pluscircleo" size={35} color={color} />
           ),
         }}
         name="Create"
-        component={CreateScreen}
+        component={CreatePostsScreen}
       />
       <MainTab.Screen
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <MaterialCommunityIcons
-              name="face-profile"
-              size={size}
-              color={color}
-            />
+            <AiOutlineUser name="face-profile" size={size} color={color} />
           ),
         }}
         name="Profile"

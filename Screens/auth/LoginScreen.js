@@ -23,7 +23,7 @@ const initialState = {
 
 SplashScreen.preventAutoHideAsync();
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [isReady, setIsReady] = useState(false);
@@ -148,6 +148,7 @@ export default function LoginScreen() {
                   <Text style={styles.btnTitle}>Увійти</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                  onPress={() => navigation.navigate("Register")}
                   style={{
                     ...styles.linkToLogin,
                     display: isShowKeyboard ? "none" : "flex",
