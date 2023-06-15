@@ -12,11 +12,13 @@ import PostsScreen from "./Screens/mainScreen/PostsScreen";
 import CreatePostsScreen from "./Screens/mainScreen/CreatePostsScreen";
 import ProfileScreen from "./Screens/mainScreen/ProfileScreen";
 
-import {
-  AiOutlineAppstore,
-  AiOutlinePlus,
-  AiOutlineUser,
-} from "react-icons/ai";
+// import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+// import {
+//   AiOutlineAppstore,
+//   AiOutlinePlus,
+//   AiOutlineUser,
+// } from "react-icons/ai";
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
@@ -40,11 +42,11 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    <MainTab.Navigator tabBarOptions={{ showLabel: false }}>
+    <MainTab.Navigator screenOptions={{ tabBarShowLabel: false }}>
       <MainTab.Screen
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <AiOutlineAppstore name="postage-stamp" size={size} color={color} />
+            <AntDesign name="appstore-o" size={size} color={color} />
           ),
         }}
         name="Posts"
@@ -53,7 +55,7 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <AiOutlinePlus name="pluscircleo" size={35} color={color} />
+            <AntDesign name="appstore-o" size={size} color={color} />
           ),
         }}
         name="Create"
@@ -62,7 +64,7 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <AiOutlineUser name="face-profile" size={size} color={color} />
+            <AntDesign name="appstore-o" size={size} color={color} />
           ),
         }}
         name="Profile"
