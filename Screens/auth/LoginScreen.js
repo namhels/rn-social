@@ -23,7 +23,7 @@ const initialState = {
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RegistrationScreen() {
+export default function LoginScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [isReady, setIsReady] = useState(false);
@@ -34,8 +34,8 @@ export default function RegistrationScreen() {
     async function prepare() {
       try {
         await Font.loadAsync({
-          "Roboto-Regular": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
-          "Roboto-Medium": require("../assets/fonts/Roboto/Roboto-Medium.ttf"),
+          "Roboto-Regular": require("../../assets/fonts/Roboto/Roboto-Regular.ttf"),
+          "Roboto-Medium": require("../../assets/fonts/Roboto/Roboto-Medium.ttf"),
         });
       } catch (e) {
         console.warn(e);
