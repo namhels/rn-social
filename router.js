@@ -55,7 +55,7 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <AntDesign name="appstore-o" size={size} color={color} />
+            <AntDesign name="plus" size={size} color={color} />
           ),
         }}
         name="Create"
@@ -64,7 +64,7 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <AntDesign name="appstore-o" size={size} color={color} />
+            <AntDesign name="user" size={size} color={color} />
           ),
         }}
         name="Profile"
