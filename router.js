@@ -12,13 +12,7 @@ import PostsScreen from "./Screens/mainScreen/PostsScreen";
 import CreatePostsScreen from "./Screens/mainScreen/CreatePostsScreen";
 import ProfileScreen from "./Screens/mainScreen/ProfileScreen";
 
-// import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-// import {
-//   AiOutlineAppstore,
-//   AiOutlinePlus,
-//   AiOutlineUser,
-// } from "react-icons/ai";
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
